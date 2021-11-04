@@ -16,23 +16,22 @@ function App() {
   },[startCount])
 
   const MovieSearch = useCallback( async (page)=> {
+    console.log(page);
     try {
-      const resp = await axios.get('/v1/search/movie.json', {
+      const resp = await axios.get('/api',
+      {
         params: {
           query: search,
-          display: 12,
-          start: page
-        },
-        headers: {
-          'X-Naver-Client-Id': client_id,
-          'X-Naver-Client-Secret': client_secret
-        }
+          page: page
+        }  
       });
       if(resp && resp.status === 200){
         const { data } = resp;
         console.log(data.items);
-        setMovies(data.items);
-      }
+        if(data.items){
+          setMovies(data.items);
+        }
+      }    
     } catch (error) {
       console.log(error);
     }
