@@ -8,7 +8,7 @@ const client_id = 'tioFMI_bJPIwRfinJ_Gk';
 const client_secret = 'dD7R5xiuRi';
 
 app.use(express.static(path.join(__dirname,"../build")));
-app.get('/', (req, res) => {
+app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname,'../build/index.html'));
 });
 
