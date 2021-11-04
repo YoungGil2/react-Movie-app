@@ -9,19 +9,19 @@ function App() {
   const [search, setSearch] = useState('');
   const [movies, setMovies] = useState([]);
   const [startCount, setStartCount] = useState(1);
-  
+
   useEffect(()=>{
-    MovieSearch();
+    MovieSearch(startCount);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   },[startCount])
 
-  const MovieSearch = useCallback( async ()=> {
+  const MovieSearch = useCallback( async (page)=> {
     try {
       const resp = await axios.get('/v1/search/movie.json', {
         params: {
           query: search,
           display: 12,
-          start: startCount
+          start: page
         },
         headers: {
           'X-Naver-Client-Id': client_id,
@@ -41,8 +41,8 @@ function App() {
   
   return (
     <div>
-      <input type='text' onChange={(e) => setSearch(e.target.value)} onKeyPress={(e) => (e.key === "Enter" ? (MovieSearch()) : null)}/>
-      <button onClick={() => {MovieSearch();}} >검색</button>
+      <input type='text' onChange={(e) => setSearch(e.target.value)} onKeyPress={(e) => (e.key === "Enter" ? (MovieSearch(1),setStartCount(1)) : null)}/>
+      <button onClick={() => {MovieSearch(1); setStartCount(1);}} >검색</button>
       <div className="movie__container">
         {movies.map((value, key)=> {
           return (
