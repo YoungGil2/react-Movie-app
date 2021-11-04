@@ -1,0 +1,51 @@
+/*
+ * 반응형 사이즈 변수 지정
+ */
+ $mobile-width: 320px;
+ $tablet-width: 768px;
+ $desktop-width: 1024px;
+ $desktop-mypage-width: 1320px;
+ $wide-width: 1440px;
+ $full-width: 1920px;
+ 
+ $responsive-type: (
+   //'mobile': '(min-width: #{$mobile-width})',
+   //'only-mobile': '(min-width: #{$mobile-width}) and (max-width: #{$tablet-width - 1px})',
+         'only-mobile': '(max-width: #{$tablet-width - 1px})',
+         'tablet': '(min-width: #{$tablet-width})',
+         'only-tablet': '(min-width: #{$tablet-width}) and (max-width: #{$desktop-width - 1px})',
+         'desktop': '(min-width: #{$desktop-width})',
+         'desktop-mypage': '(min-width: #{$desktop-mypage-width})',
+         'wide': '(min-width: #{$wide-width})',
+         'full': '(min-width: #{$full-width})'
+ );
+ 
+ @mixin min-width ($width) {
+   @media all and (min-width: $width) {
+     @content;
+   }
+ }
+ 
+ @mixin max-width ($width) {
+   @media all and (max-width: $width) {
+     @content;
+   }
+ }
+ 
+ @mixin MinMax-width ($min,$max) {
+   @media all and(min-width : $min) and (max-width : $max) {
+     @content;
+   }
+ }
+ 
+ @mixin responsive ($type) {
+   $media-query: map-get($responsive-type, $type);
+   @if ($media-query) {
+     @media all and #{$media-query} {
+       @content;
+     }
+   } @else {
+     @content;
+   }
+ }
+ 
