@@ -56,8 +56,6 @@ function App() {
       <div className="movie__paging">
         {startCount > 11 && <button className="button default" onClick={()=>{ setStartCount((prevState) => (prevState - 12)) }}>이전</button>}
         {movies.length > 11 && <button className="button default" onClick={()=> { setStartCount((prevState) => (prevState + 12)) }} >다음</button>}
-        <button className="button default">이전</button>
-        <button className="button default">다음</button>
       </div>
       
     </div>
