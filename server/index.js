@@ -29,7 +29,7 @@ app.get('/api', async (req, res) => {
     });
     if(resp && resp.status === 200){
       const { data } = resp;
-      console.log(data);
+      console.log(query);
       return res.json(data);
     }
   } catch (error) {
