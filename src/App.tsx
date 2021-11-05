@@ -4,8 +4,6 @@ import axios from 'axios';
 import './assets/scss/movie/Movie.scss';
 
 function App() {
-  const client_id = 'tioFMI_bJPIwRfinJ_Gk';
-  const client_secret = 'dD7R5xiuRi';
   const [search, setSearch] = useState('');
   const [movies, setMovies] = useState([]);
   const [startCount, setStartCount] = useState(1);
@@ -40,20 +38,28 @@ function App() {
   
   return (
     <div>
-      <input type='text' onChange={(e) => setSearch(e.target.value)} onKeyPress={(e) => (e.key === "Enter" ? (MovieSearch(1),setStartCount(1)) : null)}/>
-      <button onClick={() => {MovieSearch(1); setStartCount(1);}} >검색</button>
+      <div className="movie__search-container">
+        <input className="movie__search" placeholder="입력해주세요." type='text' onChange={(e) => setSearch(e.target.value)} onKeyPress={(e) => (e.key === "Enter" ? (MovieSearch(1),setStartCount(1)) : null)}/>
+        <button className="button default" onClick={() => {MovieSearch(1); setStartCount(1);}} >검색</button>
+      </div>
+     
       <div className="movie__container">
         {movies.map((value, key)=> {
           return (
             <MovieCard movies={value} key={key} />
           );
         })}
-        {movies.length === 0 &&
-          <div>검색된 내용이 없습니다.</div>
-        }
       </div>
-      {startCount > 11 && <button onClick={()=>{ setStartCount((prevState) => (prevState - 12)) }}>이전</button>}
-      {movies.length > 11 && <button onClick={()=> { setStartCount((prevState) => (prevState + 12)) }} >다음</button>}
+      {movies.length === 0 &&
+        <div className="movie__noData">검색된 내용이 없습니다.</div>
+      }
+      <div className="movie__paging">
+        {startCount > 11 && <button className="button default" onClick={()=>{ setStartCount((prevState) => (prevState - 12)) }}>이전</button>}
+        {movies.length > 11 && <button className="button default" onClick={()=> { setStartCount((prevState) => (prevState + 12)) }} >다음</button>}
+        <button className="button default">이전</button>
+        <button className="button default">다음</button>
+      </div>
+      
     </div>
   );
 }
