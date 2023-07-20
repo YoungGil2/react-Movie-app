@@ -4,8 +4,8 @@ const path = require("path");
 const port = process.env.PORT || 5000;
 const axios = require('axios');
 
-const client_id = 'tioFMI_bJPIwRfinJ_Gk';
-const client_secret = 'dD7R5xiuRi';
+const client_id = process.env.CLIENT_ID;
+const client_secret = process.env.CLIENT_SECRET;
 
 app.use(express.static(path.join(__dirname,"../build")));
 app.get('/', (req, res) => {
